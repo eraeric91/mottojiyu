@@ -625,7 +625,22 @@
         }
 
         .form-submit {
-            display: none;
+            background: #000;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
         }
 
         .form-submit:hover {
@@ -925,7 +940,7 @@
     <section class="contact" id="contact">
         <div class="contact-container">
             <h2>Ready to get started?</h2>
-            <form class="contact-form">
+            <form class="contact-form" action="https://formspree.io/f/xpwagkqz" method="POST">
                 <div class="form-group">
                     <label for="name" class="form-label">What should we call you?</label>
                     <input type="text" id="name" name="name" class="form-input" placeholder="Your name">
