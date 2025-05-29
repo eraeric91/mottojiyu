@@ -50,10 +50,25 @@
             opacity: 0.7;
         }
 
-        .banner-icon {
+        .banner-icon-language {
             width: 16px;
             height: 16px;
             background: #000;
+            background-image: url('https://github.com/eraeric91/assets/raw/main/language.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 2px;
+        }
+
+        .banner-icon-accessibility {
+            width: 16px;
+            height: 16px;
+            background: #000;
+            background-image: url('https://github.com/eraeric91/assets/raw/main/accessibility.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             border-radius: 2px;
         }
 
@@ -813,11 +828,11 @@
     <div class="top-banner" id="topBanner">
         <div class="banner-content">
             <a href="#" class="banner-item">
-                <div class="banner-icon"></div>
+                <div class="banner-icon-accessibility"></div>
                 Accessibility
             </a>
             <a href="#" class="banner-item">
-                <div class="banner-icon"></div>
+                <div class="banner-icon-language"></div>
                 Language
             </a>
         </div>
