@@ -3,22 +3,1019 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="coming-soon">
-    <div class="container">
-        
-        <main>
-            <section class="announcement">
-                <h2>Coming Soon</h2>
-                <div class="divider"></div>
-                <p>Our website is under construction.</p>
-                <p>Check back soon for updates.</p>
-            </section>
+    <title>Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            overflow-x: hidden;
+        }
+
+        /* Top banner */
+        .top-banner {
+            background: #f5f5f5;
+            padding: 8px 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        .top-banner.hidden {
+            transform: translateY(-100%);
+        }
+
+        .banner-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .banner-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s ease;
+        }
+
+        .banner-item:hover {
+            opacity: 0.7;
+        }
+
+        .banner-icon {
+            width: 16px;
+            height: 16px;
+            background: #000;
+            border-radius: 2px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            padding: 16px 32px;
+            position: fixed;
+            top: 36px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: none;
+            transition: top 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.banner-hidden {
+            top: 0;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            padding: 164px 32px 64px;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            position: relative;
+            background: white;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1440px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 32px;
+            min-height: calc(100vh - 228px);
+        }
+
+        .hero-left {
+            grid-column: 1 / 8;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            height: 100%;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 400;
+            color: #1a202c;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1a202c 0%, #4a5568 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+            font-family: 'Hedvig Letters Serif', serif;
+        }
+
+        .hero-image-left {
+            width: 100%;
+            flex: 1;
+            background: url('assets/hero-left.png') center/cover no-repeat;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px;
+        }
+
+        .hero-image-left .image-content {
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-image-left .content-tag {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-family: 'Avenir Next', sans-serif;
+        }
+
+        .hero-image-left .content-title {
+            font-family: 'Hedvig Letters Serif', serif;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .hero-image-left .content-subtitle {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-image-left .content-date {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+        }
+
+        .hero-image-left .content-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image-left .tag {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-family: 'Avenir Next', sans-serif;
+        }
+
+        .hero-image-left .read-more-btn,
+        .hero-image-right .read-more-btn,
+        .thought-read-more {
+            display: none;
+        }
+
+        .hero-image-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-right {
+            grid-column: 8 / 13;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            height: 100%;
+        }
+
+        .hero-image-right {
+            width: 100%;
+            flex: 1;
+            background: url('assets/hero-right.png') center/cover no-repeat;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px;
+        }
+
+        .hero-image-right .image-content {
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-image-right .content-tag {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-family: 'Avenir Next', sans-serif;
+        }
+
+        .hero-image-right .content-title {
+            font-family: 'Hedvig Letters Serif', serif;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .hero-image-right .content-subtitle {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-image-right .content-date {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+        }
+
+        .hero-image-right .content-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image-right .tag {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-family: 'Avenir Next', sans-serif;
+        }
+
+        .hero-image-right .read-more-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .hero-image-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.2)"/></svg>');
+        }
+
+        .learn-more-card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            text-align: center;
+        }
+
+        .learn-more-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .learn-more-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            background: #F0EFED;
+        }
+
+        .learn-more-card:hover::before {
+            left: 100%;
+        }
+
+        .learn-more-card h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #1a202c;
+            font-family: 'Hedvig Letters Serif', serif;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .learn-more-card p {
+            color: #4a5568;
+            font-size: 1rem;
+        }
+
+        .learn-more-arrow {
+            display: inline-block;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .learn-more-card:hover .learn-more-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Thoughts section placeholder */
+        .thoughts {
+            min-height: 100vh;
+            padding: 64px 0;
+            background: #F7F6F4;
+            color: #333;
+        }
+
+        .thoughts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 160px;
+        }
+
+        .thoughts h2 {
+            font-size: 3rem;
+            font-weight: 400;
+            text-align: center;
+            font-family: 'Hedvig Letters Serif', serif;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 64px;
+        }
+
+        .thought-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 64px;
+            margin-bottom: 80px;
+            padding-bottom: 80px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .thought-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .thought-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .thought-title {
+            font-family: 'Hedvig Letters Serif', serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: #1a202c;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .thought-subtitle {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1.25rem;
+            color: #4a5568;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        .thought-date {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        .thought-tags {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .thought-tag {
+            background: #000;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-family: 'Avenir Next', sans-serif;
+        }
+
+        .thought-description {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            margin-bottom: 32px;
+        }
+
+        .thought-read-more:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .thought-image {
+            flex-shrink: 0;
+            width: 280px;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .thought-image.image-1 {
+            background: url('assets/image-1.png') center/cover no-repeat;
+        }
+
+        .thought-image.image-2 {
+            background: url('assets/image-2.png') center/cover no-repeat;
+        }
+
+        .thought-image.image-3 {
+            background: url('assets/image-3.png') center/cover no-repeat;
+        }
+
+        /* Contact section */
+        .contact {
+            min-height: 100vh;
+            padding: 64px 0;
+            background: white;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 0 32px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Hedvig Letters Serif', serif;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #1a202c;
+            margin-bottom: 32px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-label {
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 8px;
+            display: block;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            background: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            display: none;
+        }
+
+        .form-submit:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design for thoughts */
+        @media (max-width: 768px) {
+            .contact h2 {
+                font-size: 2.5rem;
+            }
             
-        </main>
-    
+            .contact-container {
+                max-width: 100%;
+            }
+        }
+
+        /* Mobile responsive for footer */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .footer-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .footer-divider {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .thoughts-container {
+                padding: 0 32px;
+            }
+            
+            .thought-item {
+                flex-direction: column;
+                gap: 32px;
+            }
+            
+            .thought-image {
+                width: 280px;
+                height: 280px;
+                align-self: center;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .thought-title {
+                font-size: 28px;
+            }
+        }
+
+        /* Footer section */
+        .footer {
+            background: #000;
+            color: white;
+            padding: 32px 0;
+        }
+
+        .footer-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-divider {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .footer-name {
+            font-weight: 500;
+        }
+
+        .footer-contact {
+            color: #ccc;
+        }
+
+        /* Mobile responsive for contact */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .footer-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .footer-divider {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .contact h2 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-container {
+                max-width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: static;
+                margin-top: 16px;
+                justify-content: center;
+            }
+
+            .nav-content {
+                flex-direction: column;
+            }
+
+            .hero {
+                padding: 184px 32px 64px;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .hero-left,
+            .hero-right {
+                grid-column: 1;
+            }
+
+            .hero-image-left,
+            .hero-image-right {
+                height: 250px;
+            }
+
+            .navbar {
+                padding: 16px 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner" id="topBanner">
+        <div class="banner-content">
+            <a href="#" class="banner-item">
+                <div class="banner-icon"></div>
+                Accessibility
+            </a>
+            <a href="#" class="banner-item">
+                <div class="banner-icon"></div>
+                Language
+            </a>
+        </div>
     </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <img src="assets/logo-alt.svg" alt="Logo" style="height: 32px;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#thoughts">Thoughts</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-left">
+                <h1 class="hero-title">Letting your ideas grow</h1>
+                <div class="hero-image-left">
+                    <div class="image-content">
+                        <div class="content-tag">Latest</div>
+                        <h2 class="content-title">Mottojiyu: This is our agency</h2>
+                        <p class="content-subtitle">A safe space for you to explore & grow your ideas</p>
+                        <div class="content-date">May 29, 2025</div>
+                        <div class="content-tags">
+                            <span class="tag">Choice</span>
+                            <span class="tag">Integrity</span>
+                            <span class="tag">Optimism</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-image-right">
+                    <div class="image-content">
+                        <div class="content-tag">Latest</div>
+                        <h2 class="content-title">Your freedom to choose</h2>
+                        <p class="content-subtitle">Cut through the noise and build what actually matters</p>
+                        <div class="content-date">May 29, 2025</div>
+                        <div class="content-tags">
+                            <span class="tag">Choice</span>
+                            <span class="tag">Integrity</span>
+                            <span class="tag">Optimism</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="learn-more-card" onclick="scrollToThoughts()">
+                    <h3>Learn more about us</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thoughts Section -->
+    <section class="thoughts" id="thoughts">
+        <div class="thoughts-container">
+            <div class="thought-item">
+                <div class="thought-content">
+                    <h3 class="thought-title">Mottojiyu: This is our agency</h3>
+                    <p class="thought-subtitle">A safe space for you to explore & grow your ideas</p>
+                    <div class="thought-date">May 29, 2025</div>
+                    <div class="thought-tags">
+                        <span class="thought-tag">Choice</span>
+                        <span class="thought-tag">Integrity</span>
+                        <span class="thought-tag">Optimism</span>
+                    </div>
+                    <p class="thought-description">We believe in creating environments where ideas can flourish without judgment. Our approach centers on understanding your unique perspective and building solutions that authentically reflect your vision. Every great venture starts with a spark of curiosity and the courage to explore what's possible.</p>
+                </div>
+                <div class="thought-image image-1"></div>
+            </div>
+
+            <div class="thought-item">
+                <div class="thought-content">
+                    <h3 class="thought-title">Your freedom to choose</h3>
+                    <p class="thought-subtitle">Cut through the noise and build what actually matters</p>
+                    <div class="thought-date">May 29, 2025</div>
+                    <div class="thought-tags">
+                        <span class="thought-tag">Choice</span>
+                        <span class="thought-tag">Integrity</span>
+                        <span class="thought-tag">Optimism</span>
+                    </div>
+                    <p class="thought-description">In a world full of distractions and competing priorities, we help you focus on what truly drives impact. Choice isn't just about having options—it's about having the clarity and confidence to pursue the path that aligns with your values and goals.</p>
+                </div>
+                <div class="thought-image image-2"></div>
+            </div>
+
+            <div class="thought-item">
+                <div class="thought-content">
+                    <h3 class="thought-title">Building the world we all need</h3>
+                    <p class="thought-subtitle">Accessibility & inclusive design from day one</p>
+                    <div class="thought-date">May 29, 2025</div>
+                    <div class="thought-tags">
+                        <span class="thought-tag">Choice</span>
+                        <span class="thought-tag">Integrity</span>
+                        <span class="thought-tag">Optimism</span>
+                    </div>
+                    <p class="thought-description">True innovation happens when we design for everyone from the start. We're committed to creating solutions that are not only functional and beautiful, but also accessible and inclusive. The future we're building should work for all of us, not just a select few.</p>
+                </div>
+                <div class="thought-image image-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Ready to get started?</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">What should we call you?</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact" class="form-label">How can we reach you?</label>
+                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone, email, etc....">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">What can we help you build? (Optional)</label>
+                    <textarea id="message" name="message" class="form-input form-textarea" placeholder="Who are you trying to help? What problem are you trying to solve? What makes you think it might work? Help us understand what's got you excited."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">
+                    Let's grow this idea →
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <span class="footer-text">Get in touch</span>
+            <span class="footer-divider">|</span>
+            <div class="footer-section">
+                <span class="footer-name">Eric Moore</span>
+                <span class="footer-contact">moore.eric303@gmail.com</span>
+                <span class="footer-contact">(303) 845-0746</span>
+            </div>
+            <span class="footer-divider">|</span>
+            <div class="footer-section">
+                <span class="footer-name">Anna Free</span>
+                <span class="footer-contact">annathefree@gmail.com</span>
+                <span class="footer-contact">(801) 822-1068</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Handle banner visibility and navbar positioning
+        let lastScrollTop = 0;
+        const banner = document.getElementById('topBanner');
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Hide/show banner based on scroll direction
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                banner.classList.add('hidden');
+                navbar.classList.add('banner-hidden');
+            } else {
+                banner.classList.remove('hidden');
+                navbar.classList.remove('banner-hidden');
+            }
+            
+            // Add scrolled class for shadow effect
+            if (scrollTop > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scroll to thoughts section
+        function scrollToThoughts() {
+            document.getElementById('thoughts').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Add smooth scrolling to all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
