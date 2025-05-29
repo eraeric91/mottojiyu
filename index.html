@@ -22,17 +22,9 @@
         /* Top banner */
         .top-banner {
             background: #f5f5f5;
-            padding: 8px 32px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            padding: 8px 0;
+            position: relative;
             z-index: 1001;
-            transition: transform 0.3s ease;
-        }
-
-        .top-banner.hidden {
-            transform: translateY(-100%);
         }
 
         .banner-content {
@@ -40,6 +32,7 @@
             justify-content: flex-end;
             align-items: center;
             gap: 24px;
+            padding: 0 32px;
         }
 
         .banner-item {
@@ -63,21 +56,14 @@
             border-radius: 2px;
         }
 
-        /* Navbar */
+        /* Navbar - Scrolls with content */
         .navbar {
             background: white;
             padding: 16px 32px;
-            position: fixed;
-            top: 36px;
-            left: 0;
-            right: 0;
+            position: relative;
             z-index: 1000;
             box-shadow: none;
-            transition: top 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .navbar.banner-hidden {
-            top: 0;
+            transition: box-shadow 0.3s ease;
         }
 
         .navbar.scrolled {
@@ -106,7 +92,7 @@
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             list-style: none;
         }
 
@@ -114,6 +100,7 @@
             color: #333;
             text-decoration: none;
             font-weight: 500;
+            font-size: 14px;
             transition: color 0.3s ease, transform 0.2s ease;
             position: relative;
         }
@@ -141,7 +128,7 @@
         /* Hero section */
         .hero {
             min-height: 100vh;
-            padding: 164px 32px 64px;
+            padding: 64px 0 64px; /* Removed horizontal padding */
             display: flex;
             justify-content: center;
             align-items: start;
@@ -155,7 +142,8 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 32px;
-            min-height: calc(100vh - 228px);
+            min-height: calc(100vh - 128px);
+            padding: 0 32px; /* Added padding to container instead */
         }
 
         .hero-left {
@@ -197,19 +185,25 @@
 
         .hero-image-left .image-content {
             color: white;
-            z-index: 2;
+            z-index: 3;
             position: relative;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin: -24px;
+            backdrop-filter: blur(1px);
         }
 
         .hero-image-left .content-tag {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
             display: inline-block;
             margin-bottom: 16px;
             font-family: 'Avenir Next', sans-serif;
+            font-weight: 500;
         }
 
         .hero-image-left .content-title {
@@ -295,19 +289,25 @@
 
         .hero-image-right .image-content {
             color: white;
-            z-index: 2;
+            z-index: 3;
             position: relative;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin: -24px;
+            backdrop-filter: blur(1px);
         }
 
         .hero-image-right .content-tag {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
             display: inline-block;
             margin-bottom: 16px;
             font-family: 'Avenir Next', sans-serif;
+            font-weight: 500;
         }
 
         .hero-image-right .content-title {
@@ -779,7 +779,11 @@
             }
 
             .hero {
-                padding: 184px 32px 64px;
+                padding: 64px 0 64px; /* Removed horizontal padding for mobile too */
+            }
+
+            .hero-container {
+                padding: 0 32px; /* Keep container padding on mobile */
             }
             
             .hero-container {
@@ -968,33 +972,7 @@
     </footer>
 
     <script>
-        // Handle banner visibility and navbar positioning
-        let lastScrollTop = 0;
-        const banner = document.getElementById('topBanner');
-        const navbar = document.getElementById('navbar');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Hide/show banner based on scroll direction
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                banner.classList.add('hidden');
-                navbar.classList.add('banner-hidden');
-            } else {
-                banner.classList.remove('hidden');
-                navbar.classList.remove('banner-hidden');
-            }
-            
-            // Add scrolled class for shadow effect
-            if (scrollTop > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-
+        // Simplified script - removed banner hide/show logic since everything scrolls together now
         // Smooth scroll to thoughts section
         function scrollToThoughts() {
             document.getElementById('thoughts').scrollIntoView({
