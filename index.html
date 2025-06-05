@@ -639,7 +639,19 @@
         }
 
         .form-submit {
-            display: none;
+            background: #000;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Avenir Next', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            /* Remove display: none; */
         }
 
         .form-submit:hover {
@@ -943,15 +955,21 @@
     <section class="contact" id="contact">
         <div class="contact-container">
             <h2>Ready to get started?</h2>
-            <form class="contact-form">
+            <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+                <!-- Hidden field for spam protection -->
+                <input type="hidden" name="form-name" value="contact" />
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+                
                 <div class="form-group">
                     <label for="name" class="form-label">What should we call you?</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name">
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="contact" class="form-label">How can we reach you?</label>
-                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone, email, etc....">
+                    <input type="text" id="contact" name="contact" class="form-input" placeholder="Phone, email, etc...." required>
                 </div>
                 
                 <div class="form-group">
