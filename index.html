@@ -994,7 +994,6 @@
     </footer>
 
     <script>
-        // Simplified script - removed banner hide/show logic since everything scrolls together now
         // Smooth scroll to thoughts section
         function scrollToThoughts() {
             document.getElementById('thoughts').scrollIntoView({
@@ -1016,6 +1015,137 @@
                 }
             });
         });
-    </script>
+
+        // Enhanced form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitBtn = form.querySelector('.form-submit');
+            const submitText = submitBtn.querySelector('.submit-text');
+            const submitLoading = submitBtn.querySelector('.submit-loading');
+            
+            // Show loading state
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'flex';
+            submitBtn.disabled = true;
+            
+            // Create FormData object
+            const formData = new FormData(form);
+            
+            // Submit to Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success! Show success message
+                    showSuccessMessage();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Reset button and show error
+                submitText.style.display = 'inline';
+                submitLoading.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                // Show error notification
+                showNotification('Something went wrong. Please try again or email us directly at hello@mottojiyu.com', 'error');
+            });
+        });
+
+        // Show success message and hide form
+        function showSuccessMessage() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Hide form with fade out
+            form.style.transition = 'opacity 0.3s ease';
+            form.style.opacity = '0';
+            
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        // Reset form function (for "Send another message" button)
+        function resetForm() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = form.querySelector('.form-submit');
+            const submitText = submitBtn.querySelector('.submit-text');
+            const submitLoading = submitBtn.querySelector('.submit-loading');
+            
+            // Reset form
+            form.reset();
+            
+            // Reset button state
+            submitText.style.display = 'inline';
+            submitLoading.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Show form and hide success message
+            successMessage.style.display = 'none';
+            form.style.display = 'block';
+            form.style.opacity = '1';
+            
+            // Scroll to form
+            form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Notification function (for errors)
+        function showNotification(message, type) {
+            // Remove existing notification
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            // Style the notification
+            Object.assign(notification.style, {
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                padding: '16px 24px',
+                borderRadius: '12px',
+                color: 'white',
+                fontFamily: '"Avenir Next", sans-serif',
+                fontSize: '14px',
+                fontWeight: '500',
+                zIndex: '10000',
+                opacity: '0',
+                transform: 'translateY(-20px)',
+                transition: 'all 0.3s ease',
+                maxWidth: '350px',
+                background: type === 'success' ? '#10b981' : '#ef4444',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
+            });
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+</script>
 </body>
 </html>
